@@ -1,21 +1,14 @@
 const express = require('express');
-const client = require('./client');
 var path = require('path');
+const client = require('./client');
+const options = require('./options.json');
+const build_folder = options.deploy.html_build_folder.endsWith('/') ? options.deploy.html_build_folder : options.deploy.html_build_folder + "/"
+const file_name = options.deploy.html_file_name;
 
 app = express();
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.htm'));
-})
-
-app.post('/all/on', function (req, res) {
-    res.json({all : 'on'});
-    client.On("*"); 
-})
-
-app.post('/all/off', function (req, res) {
-    res.json({all: 'off'});
-    client.Off("*"); 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname + '/' + build_folder + file_name));
 })
 
 app.post('/:zone/on', function (req, res) {
@@ -28,4 +21,4 @@ app.post('/:zone/off', function (req, res) {
     client.Off(req.params.zone); 
 })
 
-app.listen(3001, () => console.log(`Example app listening on port 3000`))
+app.listen(options.port, () => console.log("Example app listening on port " + options.port))

@@ -1,7 +1,11 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var inject = require('gulp-inject');
-var streamify = require('gulp-streamify');
+const options = require('./options.json');
+const build_folder = options.deploy.html_build_folder.endsWith('/') ? options.deploy.html_build_folder : options.deploy.html_build_folder + "/"
+const file_name = options.deploy.html_file_name;
+const src = build_folder + file_name;
+const dest = options.deploy.dest;
 
 gulp.task('assets', () => {
 
@@ -25,3 +29,8 @@ gulp.task('assets', () => {
 })
 
 gulp.task('default', gulp.series(['assets']));
+
+gulp.task('deploy', () => {
+  return gulp.src(src)
+  .pipe(gulp.dest(dest));
+})
