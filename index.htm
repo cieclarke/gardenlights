@@ -20,21 +20,21 @@
                 <div class="d-flex flex-row justify-content-center">
                     <div class="btn-group p-2" role="group" aria-label="Basic example">
                         <button id="all-on" type="button" class="btn btn-outline-warning btn-lg">On</button>
-                        <button type="button" class="btn btn-outline-secondary btn-secondary btn-lg" disabled>All Lights</button>
+                        <button type="button" class="btn btn-outline-secondary btn-secondary btn-lg btn-info" disabled>All Lights</button>
                         <button id="all-off" type="button" class="btn btn-outline-info btn-lg">Off</button>
                     </div>
                 </div>
                 <div class="d-flex flex-row justify-content-center">
                     <div class="btn-group p-2" role="group" aria-label="Basic example">
                         <button id="pathway-on" type="button" class="btn btn-outline-warning btn-lg">On</button>
-                        <button type="button" class="btn btn-outline-secondary btn-secondary btn-lg" disabled>Pathway</button>
+                        <button type="button" class="btn btn-outline-secondary btn-secondary btn-lg btn-info" disabled>Pathway</button>
                         <button id="pathway-off" type="button" class="btn btn-outline-info btn-lg">Off</button>
                     </div>
                 </div>
                 <div class="d-flex flex-row justify-content-center">
                     <div class="btn-group p-2" role="group" aria-label="Basic example">
                         <button id="driveway-on" type="button" class="btn btn-outline-warning btn-lg">On</button>
-                        <button type="button" class="btn btn-outline-secondary btn-secondary btn-lg" disabled>Driveway</button>
+                        <button type="button" class="btn btn-outline-secondary btn-secondary btn-lg btn-info" disabled>Driveway</button>
                         <button id="driveway-off" type="button" class="btn btn-outline-info btn-lg">Off</button>
                     </div>
                 </div>
@@ -66,19 +66,19 @@
             var all_off_button = document.getElementById('all-off');
             
             all_on_button.addEventListener("click", function( event ) {
-                click("/all/on");
+                click("/0/on");
             }, false);
         
             all_off_button.addEventListener("click", function( event ) {
-                click("/all/off");
+                click("/0/off");
             }, false);
         
             all_on_button.addEventListener("touchstart", function( event ) {
-                click("/all/on");
+                click("/0/on");
             }, false);
         
             all_off_button.addEventListener("touchstart", function( event ) {
-                click("/all/off");
+                click("/0/off");
             }, false);
         
         
