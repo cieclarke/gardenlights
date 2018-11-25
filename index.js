@@ -8,8 +8,6 @@ const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
   });
-  
-  
 
   var q = () => { rl.question('option:', (answer) => {
     currentOption = answer;
@@ -17,9 +15,9 @@ const rl = readline.createInterface({
     switch(currentOption) {
         case '0' : rl.close(); process.exit();
             break;
-        case '1' : client.On("*"); q();
+        case '1' : client.On("0"); q();
             break;
-        case '2' : client.Off("*"); q();
+        case '2' : client.Off("0"); q();
             break;
         default : break;
 
