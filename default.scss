@@ -5,8 +5,23 @@ $btn-line-height: 1rem !default;
 
 $btn-font-weight: bold;
 
-$jumbotron-bg:  #212223 !default;
 
-.btn-info {
-    width: 10rem;
-}
+
+.opacity-75 {
+    opacity: 0.75;
+  }
+
+@include media-breakpoint-down(xs) {
+
+    html {
+        font-size: 0.75rem;
+    }
+
+    body {
+        $encodedJPG: encodeBase64('bg2.png');
+        background-image: url('data:image/png;base64,#{$encodedJPG}');
+        background-repeat: no-repeat;
+      }
+  }
+
+

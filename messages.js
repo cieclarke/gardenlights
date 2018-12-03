@@ -1,7 +1,5 @@
-const options = require('./options.json');
-const devices = options.lsmaxdevices;
 
-module.exports = () => {
+module.exports = (devices) => {
 	var messages = {
 		'0' : {
 			on: 'all_on\r\n',

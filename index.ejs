@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Easton House Lights</title>
+    <!-- inject:maincss -->
+    <!-- endinject -->
+    <!-- inject:node_modules/tether/dist/css/tether.min.css -->
+    <!-- endinject -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+<body>
+    <div class="container" style="height: 20px">
+
+    </div>
+    
+        <div class="container">
+
+            <% for(var i=0; i < config.zones.length; i++) { %>
+
+            <div class="d-flex flex-row justify-content-between">
+                <div class="p-2">
+                    <button id="<%= config.zones[i].name %>-on" type="button" class="btn btn-warning btn-lg opacity-75">On</button>
+                    </div>
+
+                    <div class="container p-2">
+                        <div class="alert alert-warning text-center opacity-75"><%= config.zones[i].display %></div>
+                    </div>
+                <div class="p-2">
+                    <button id="<%= config.zones[i].name %>-off" type="button" class="btn btn-info btn-lg opacity-75">Off</button>
+                </div>
+            </div>
+
+            <% } %>
+
+        </div>
+
+    <!-- inject:node_modules/jquery/dist/jquery.slim.js -->
+    <!-- endinject -->
+    <!-- inject:node_modules/tether/dist/js/tether.min.js -->
+    <!-- endinject -->
+    <!-- inject:node_modules/bootstrap/dist/js/bootstrap.min.js -->
+    <!-- endinject -->
+    <script>
+
+            function click(path) {
+                var r = new XMLHttpRequest();
+                r.open("POST", path, true);
+                r.setRequestHeader("Access-Control-Allow-Origin", "true");
+                r.onreadystatechange = function () {
+                    if (r.readyState != 4 || r.status != 200) {
+                        console.log(r)
+                    };
+                    console.log(r.responseType);
+                };
+                r.send('');
+            }
+
+            <% for(var i=0; i < config.zones.length; i++) { %>
+
+                var <%= config.zones[i].name %>_on_button = document.getElementById('<%= config.zones[i].name %>-on');
+                var <%= config.zones[i].name %>_off_button = document.getElementById('<%= config.zones[i].name %>-off');
+                
+                <%= config.zones[i].name %>_on_button.addEventListener("click", function( event ) {
+                    click("/<%= config.zones[i].id %>/on");
+                }, false);
+            
+                <%= config.zones[i].name %>_off_button.addEventListener("click", function( event ) {
+                    click("/<%= config.zones[i].id %>/off");
+                }, false);
+            
+                <%= config.zones[i].name %>_on_button.addEventListener("touchstart", function( event ) {
+                    click("/<%= config.zones[i].id %>/on");
+                }, false);
+            
+                <%= config.zones[i].name %>_off_button.addEventListener("touchstart", function( event ) {
+                    click("/<%= config.zones[i].id %>/off");
+                }, false);
+
+            <% } %>
+        
+        
+        </script>
+</body>
+</html>
