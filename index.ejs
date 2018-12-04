@@ -44,17 +44,18 @@
     <!-- endinject -->
     <script>
 
-            function click(path) {
+            function click(msg) {
                 var r = new XMLHttpRequest();
-                r.open("POST", path, true);
+                r.open("POST", '/', true);
                 r.setRequestHeader("Access-Control-Allow-Origin", "true");
+                r.setRequestHeader("Content-Type", "application/json");
                 r.onreadystatechange = function () {
                     if (r.readyState != 4 || r.status != 200) {
                         console.log(r)
                     };
-                    console.log(r.responseType);
+                    console.log(msg);
                 };
-                r.send('');
+                r.send(JSON.stringify(msg));
             }
 
             <% for(var i=0; i < config.zones.length; i++) { %>
@@ -63,19 +64,19 @@
                 var <%= config.zones[i].name %>_off_button = document.getElementById('<%= config.zones[i].name %>-off');
                 
                 <%= config.zones[i].name %>_on_button.addEventListener("click", function( event ) {
-                    click("/<%= config.zones[i].id %>/on");
+                    click({ command : "on", zone : <%= config.zones[i].id %> });
                 }, false);
             
                 <%= config.zones[i].name %>_off_button.addEventListener("click", function( event ) {
-                    click("/<%= config.zones[i].id %>/off");
+                    click({ command : 'off', zone : <%= config.zones[i].id %> });
                 }, false);
             
                 <%= config.zones[i].name %>_on_button.addEventListener("touchstart", function( event ) {
-                    click("/<%= config.zones[i].id %>/on");
+                    click({ command : 'on', zone : <%= config.zones[i].id %> });
                 }, false);
             
                 <%= config.zones[i].name %>_off_button.addEventListener("touchstart", function( event ) {
-                    click("/<%= config.zones[i].id %>/off");
+                    click({ command : 'off', zone : <%= config.zones[i].id %> });
                 }, false);
 
             <% } %>
