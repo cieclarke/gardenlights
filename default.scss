@@ -5,8 +5,6 @@ $btn-line-height: 1rem !default;
 
 $btn-font-weight: bold;
 
-
-
 .opacity-75 {
     opacity: 0.75;
   }
@@ -17,11 +15,16 @@ $btn-font-weight: bold;
         font-size: 0.75rem;
     }
 
-    body {
+    body > div {
         $encodedJPG: encodeBase64('bg2.png');
         background-image: url('data:image/png;base64,#{$encodedJPG}');
-        background-repeat: no-repeat;
+        background-repeat: space;
       }
   }
 
+  @include media-breakpoint-up(sm) {
 
+    body {
+        background-color: #798388
+      }
+  }
