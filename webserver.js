@@ -18,7 +18,6 @@ module.exports = (filePath, port, lsport, lsserver) => {
 
 	app.post('/', (req, res) => {
 
-		console.log(req.body);
 		var reqBody = req.body;
 		reqBody.readme = req.protocol + '://' + req.hostname + ':' + port + '/readme';
 
