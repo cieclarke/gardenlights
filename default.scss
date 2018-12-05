@@ -15,16 +15,21 @@ $btn-font-weight: bold;
         font-size: 0.75rem;
     }
 
-    body > div {
-        $encodedJPG: encodeBase64('bg2.png');
-        background-image: url('data:image/png;base64,#{$encodedJPG}');
-        background-repeat: space;
-      }
+    body { 
+        background-size: 20px 20px;
+        background-image: linear-gradient(to right, #2bc1d266 1px, transparent 1px),
+            linear-gradient(to bottom, #2bc1d266 1px, transparent 1px);
+        background-color: #ffffff;
+    }
+
   }
 
   @include media-breakpoint-up(sm) {
 
-    body {
-        background-color: #798388
-      }
+    body { 
+        background-size: 40px 40px;
+        background-image: linear-gradient(to right, #2bc1d266 1px, transparent 1px),
+            linear-gradient(to bottom, #2bc1d266 1px, transparent 1px);
+        background-color: #ffffff;
+    }
   }

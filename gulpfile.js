@@ -2,10 +2,8 @@ var gulp = require('gulp');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var inject = require('gulp-inject');
-var fs = require('fs');
 var mocha = require('gulp-mocha');
 const ejs = require('gulp-ejs');
-const nodeSass = require('node-sass');
 const options = require('./options.json');
 const server = require('./webserver');
 const build_folder = options.deploy.html_build_folder.endsWith('/') ? options.deploy.html_build_folder : options.deploy.html_build_folder + '/';
@@ -15,18 +13,8 @@ const dest = options.deploy.dest;
 
 gulp.task('assets', () => {
 
-	var sassOptions = {
-		functions: {
-			'encodeBase64($string)': function($string) {
-				
-				var buffer = fs.readFileSync($string.getValue());
-				return nodeSass.types.String(buffer.toString('base64'));
-			}
-		}
-	};
-
 	return gulp.src('index.ejs')
-		.pipe(inject(gulp.src('main.scss').pipe(sass(sassOptions)),
+		.pipe(inject(gulp.src('main.scss').pipe(sass()),
 			{ starttag: '<!-- inject:maincss -->', transform: (filePath, file) => { return '<style>'+file.contents.toString('utf8')+'</style>'; } }
 		))
 		.pipe(inject(gulp.src(['node_modules/jquery/dist/jquery.slim.js']),
@@ -44,7 +32,7 @@ gulp.task('assets', () => {
 		.pipe(ejs({
 			config: options
 		}))
-		.pipe(rename('index.htm'))
+		.pipe(rename(file_name))
 		.pipe(gulp.dest('site'));
 });
 
