@@ -74,8 +74,6 @@
                 setTimeout(s, 200)
             }
 
-            //var s = document.getElementById('thing').style; s.opacity = 1; (function fade(){(s.opacity-=.1)<0?s.display="none":setTimeout(fade,40)})();
-
             <% for(var i=0; i < config.zones.length; i++) { %>
 
                 var <%= config.zones[i].name %>_on_button = document.getElementById('<%= config.zones[i].name %>-on');
