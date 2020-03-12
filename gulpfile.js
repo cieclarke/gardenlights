@@ -6,6 +6,7 @@ var mocha = require('gulp-mocha');
 const ejs = require('gulp-ejs');
 const options = require('./options.json');
 const server = require('./webserver');
+const irserver = require('./irserver').default;
 const build_folder = options.deploy.html_build_folder.endsWith('/') ? options.deploy.html_build_folder : options.deploy.html_build_folder + '/';
 const file_name = options.deploy.html_file_name;
 const src = build_folder + file_name;
@@ -45,9 +46,13 @@ gulp.task('server_start', () => {
 	server(build_folder + file_name, options.port, options.lsdevice.port, options.lsdevice.server);
 });
 
+gulp.task('ir_start', () => {
+	irserver();
+});
+
 gulp.task('build', gulp.series(['test', 'assets']));
 
-gulp.task('run', gulp.series(['build', 'server_start']));
+gulp.task('run', gulp.series(['build', gulp.parallel(['server_start', 'ir_start'])]));
 
 gulp.task('default', gulp.series(['run']));
 

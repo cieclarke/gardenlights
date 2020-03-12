@@ -19,6 +19,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-streamify": "^1.0.2",
     "jquery": "^3.3.1",
+    "lirc_node": "0.0.4",
     "mocha": "^5.2.0",
     "node-sass": "^4.10.0",
     "popper": "^1.0.1",
