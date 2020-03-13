@@ -2,38 +2,30 @@ const lirc_node = require('lirc_node');
 const sender = require('./sender');
 
 
-module.exports = () => {
+module.exports = (lsport, lsserver) => {
 	console.log('IR Ready');
 	lirc_node.init();
-	var currentMode = '';
-    
-	//	lirc_node.addListener(('KEY_0', 'lightsremote', data => {
-	//		currentKey = 0;
-	//		sender('all', 'on', '3002', '192.168.1.105');  
-	//    }, 500);
-    
-	const send = (zone, command) => {
-		sender(zone , command, '3002', '192.168.1.105');
-	};
-    
+
 	lirc_node.addListener((data) => {
-		//console.log('Received IR keypress \'' + data.key + '\'\' from remote \'' + data.remote +'\'');
-		if(data.remote === 'lights') {
-			switch(data.key){
-			case 'KEY_STAR' : 
+		switch(data.key){
+			case 'KEY_STAR' :
 				currentMode = 'on';
 				break;
-			case 'KEY_HASH' : 
+			case 'KEY_HASH' :
 				currentMode = 'off';
 				break;
 			case 'KEY_0' :
-				currentMode == '' ? null : send('all', currentMode);
+				console.log('KEY_0');
+				sender(0 , 'on', lsport, lsserver);
+				break;
+			case 'KEY_1' :
+				console.log('KEY_1');
+				sender(0 , 'off', lsport, lsserver);
 				break;
 			default :
-				currentMode = '';
+				currentMode = 'test';
 				break;
-			}
 		}
 	});
-    
+
 };
