@@ -11,13 +11,6 @@
   },
   "devDependencies": {
     "body-parser": "^1.18.3",
-    "gulp": "^4.0.2",
-    "gulp-ejs": "^3.3.0",
-    "gulp-mocha": "^6.0.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-streamify": "^1.0.2",
-    "jquery": "^3.3.1",
     "lirc_node": "0.0.4",
     "mocha": "^5.2.0"
   },
