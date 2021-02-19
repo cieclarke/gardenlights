@@ -11,23 +11,19 @@
   },
   "devDependencies": {
     "body-parser": "^1.18.3",
-    "bootstrap": "^4.1.3",
     "gulp": "^4.0.2",
     "gulp-ejs": "^3.3.0",
-    "gulp-inject": "^5.0.5",
     "gulp-mocha": "^6.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-streamify": "^1.0.2",
     "jquery": "^3.3.1",
     "lirc_node": "0.0.4",
-    "mocha": "^5.2.0",
-    "node-sass": "^4.10.0",
-    "popper": "^1.0.1",
-    "tether": "^1.4.5"
+    "mocha": "^5.2.0"
   },
   "scripts": {
-    "run": "node_modules/gulp/bin/gulp.js run"
+    "local": "export CONFIG_URL=http://localhost:3000/gardenlights && node_modules/gulp/bin/gulp.js run",
+    "server": "export CONFIG_URL= && node_modules/gulp/bin/gulp.js run"
   },
   "author": "",
   "license": "ISC"

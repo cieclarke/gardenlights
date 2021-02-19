@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Easton House Lights</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        #main {
+            display: flex;
+            flex-direction: column;
+        }
+        #main > div {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            background-color: #3cb4df; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="main"><span>Loading...</span></div>
+
+    <script>
+
+            function click(msg) {
+                var r = new XMLHttpRequest();
+                r.open("POST", '/', true);
+                r.setRequestHeader("Access-Control-Allow-Origin", "true");
+                r.setRequestHeader("Content-Type", "application/json");
+                r.onreadystatechange = function () {
+                    if (r.readyState != 4 || r.status != 200) {
+                        console.log(r)
+                    };
+                };
+                r.send(JSON.stringify(msg));
+            }
+
+            function notifyOff(dislpayElement) {
+                buttonElement.classList.remove('alert-warning');
+                buttonElement.classList.add('alert-danger');
+                var s = function(){
+                    buttonElement.classList.add('alert-warning');
+                    buttonElement.classList.remove('alert-danger');
+                };
+                setTimeout(s, 200)
+            }
+
+            function notifyOn(dislpayElement) {
+                buttonElement.classList.remove('alert-warning');
+                buttonElement.classList.add('alert-success');
+                var s = function(){
+                    buttonElement.classList.add('alert-warning');
+                    buttonElement.classList.remove('alert-success');
+                };
+                setTimeout(s, 200)
+            }
+
+            function buildContent(config) {
+               
+                
+        
+                var container = document.getElementById('main');
+                var rows = document.createDocumentFragment();
+                
+                config.zones.forEach((zone, i, arr) => {
+
+                    var lsdevice = config.lsdevices.find((item) => {
+                        return item.position == zone.lsdevice;
+                    });  
+
+                    let rowElement = document.createElement('div');
+                    let colOn =  document.createElement('div');
+                    let colOff =  document.createElement('div');
+                    let colDislpay  = document.createElement('div');
+                    let buttonOn = document.createElement('button');
+                    let buttonOff = document.createElement('button');
+                    let divDisplay = document.createElement('div');
+
+                    divDisplay.innerText = zone.display;
+                    buttonOn.innerText = 'on';
+                    buttonOff.innerText = 'off';
+
+                    colOn.appendChild(buttonOn);
+                    colOff.appendChild(buttonOff);
+                    colDislpay.appendChild(divDisplay);
+
+                    var row = document.createDocumentFragment();
+                    row.appendChild(colOn);
+                    row.appendChild(colDislpay);
+                    row.appendChild(colOff);
+                    rowElement.appendChild(row);
+
+                    buttonOn.addEventListener("click", function( event ) {
+                        click({ command : 'on', zone : zone.id, host : lsdevice.server , port : lsdevice.port });
+                        notifyOn(divDisplay);
+                    }, false);
+                
+                    buttonOff.addEventListener("click", function( event ) {
+                        click({ command : 'off', zone : zone.id, host : lsdevice.server , port : lsdevice.port });
+                        notifyOff(divDisplay);
+                    }, false);
+                
+                    buttonOn.addEventListener("touchstart", function( event ) {
+                        click({ command : 'on', zone : zone.id, host : lsdevice.server , port : lsdevice.port });
+                        notifyOn(divDisplay);
+                    }, false);
+                
+                    buttonOff.addEventListener("touchstart", function( event ) {
+                        click({ command : 'off', zone : zone.id, host : lsdevice.server , port : lsdevice.port });
+                        notifyOff(divDisplay);
+                    }, false);
+
+                    rows.appendChild(rowElement);
+
+                });
+
+                container.getElementsByTagName("span")[0].replaceWith(rows);
+            }
+            
+            var r = new XMLHttpRequest();
+            r.open("GET", 'http://192.168.1.39:3000/gardenlights', true);
+            r.setRequestHeader('Content-Type', 'application/json');            
+            r.onreadystatechange = function () {
+                if (r.readyState != 4 || r.status != 200) {
+                    console.log(r)
+                };
+                if(r.readyState == 3) {
+                    buildContent(JSON.parse(r.responseText));
+                }
+
+            };
+            r.send();
+        
+        </script>
+</body>
+</html>
