@@ -15,6 +15,12 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname + '/index.htm'));
 });
 
+app.get('/ba.ttf', (req, res) => {
+
+
+	res.sendFile(path.join(__dirname + '/ba.ttf'));
+});
+
 app.get('/readme', (req, res) => {
 	res.sendFile(path.join(__dirname + '/readme.md'));
 });

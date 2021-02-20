@@ -5,18 +5,37 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
+        @font-face {
+            font-family: ds9;
+            src: url(ba.ttf);
+        }
+
         #main {
             display: flex;
             flex-direction: column;
+            max-width:350px;
+            margin: auto;
         }
+
         #main > div {
-            width: 50%;
             display: flex;
             justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        #main > div:nth-child(1) {
+            margin-top: 2rem;
+        }
+
+        #main > div > div:nth-child(2) > div {
+            width: 10rem;
+            text-align: center;
+            padding-top: 1rem;
+            font-family: ds9;
         }
 
         button {
-            background-color: #3cb4df; /* Green */
+            background-color: #3cb4df;
             border: none;
             color: white;
             padding: 15px 32px;
@@ -24,6 +43,12 @@
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
+            font-family: ds9;
+            border-radius:20%
+        }
+
+        .clicked {
+            background-color: #164a67;
         }
     </style>
 </head>
@@ -46,30 +71,24 @@
                 r.send(JSON.stringify(msg));
             }
 
-            function notifyOff(dislpayElement) {
-                buttonElement.classList.remove('alert-warning');
-                buttonElement.classList.add('alert-danger');
+            function notifyOff(buttonElement) {
+                buttonElement.classList.add('clicked');
                 var s = function(){
-                    buttonElement.classList.add('alert-warning');
-                    buttonElement.classList.remove('alert-danger');
+                    buttonElement.classList.remove('clicked');
                 };
                 setTimeout(s, 200)
             }
 
-            function notifyOn(dislpayElement) {
-                buttonElement.classList.remove('alert-warning');
-                buttonElement.classList.add('alert-success');
+            function notifyOn(buttonElement) {
+                buttonElement.classList.add('clicked');
                 var s = function(){
-                    buttonElement.classList.add('alert-warning');
-                    buttonElement.classList.remove('alert-success');
+                    buttonElement.classList.remove('clicked');
                 };
                 setTimeout(s, 200)
             }
 
             function buildContent(config) {
-               
-                
-        
+
                 var container = document.getElementById('main');
                 var rows = document.createDocumentFragment();
                 
@@ -103,22 +122,22 @@
 
                     buttonOn.addEventListener("click", function( event ) {
                         click({ command : 'on', zone : zone.id, host : lsdevice.server , port : lsdevice.port });
-                        notifyOn(divDisplay);
+                        notifyOn(buttonOn);
                     }, false);
                 
                     buttonOff.addEventListener("click", function( event ) {
                         click({ command : 'off', zone : zone.id, host : lsdevice.server , port : lsdevice.port });
-                        notifyOff(divDisplay);
+                        notifyOff(buttonOff);
                     }, false);
                 
                     buttonOn.addEventListener("touchstart", function( event ) {
                         click({ command : 'on', zone : zone.id, host : lsdevice.server , port : lsdevice.port });
-                        notifyOn(divDisplay);
+                        notifyOn(buttonOn);
                     }, false);
                 
                     buttonOff.addEventListener("touchstart", function( event ) {
                         click({ command : 'off', zone : zone.id, host : lsdevice.server , port : lsdevice.port });
-                        notifyOff(divDisplay);
+                        notifyOff(buttonOff);
                     }, false);
 
                     rows.appendChild(rowElement);
